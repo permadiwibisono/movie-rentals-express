@@ -2,6 +2,7 @@ const express  = require('express');
 const debug = require('debug')('app:startup');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const loggerMiddleware = require('./middlewares/logger');
 const app = express();
 
 app.use(express.json());
@@ -10,6 +11,7 @@ app.use(helmet());
 
 if(app.get('env') === 'development') {
   app.use(morgan('tiny'));
+  app.use(loggerMiddleware);
   debug("Morgan enabled");
 }
 debug("NODE_ENV: ", process.env.NODE_ENV)
