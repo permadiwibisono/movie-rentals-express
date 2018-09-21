@@ -1,0 +1,30 @@
+{
+  "name": "movie-rentals-express",
+  "version": "1.0.0",
+  "description": "Movie Rental API",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/permadiwibisono/movie-rentals-express.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/permadiwibisono/movie-rentals-express/issues"
+  },
+  "homepage": "https://github.com/permadiwibisono/movie-rentals-express#readme",
+  "dependencies": {
+    "config": "^2.0.1",
+    "debug": "^4.0.1",
+    "express": "^4.16.3",
+    "joi": "^13.6.0",
+    "mongoose": "^5.2.17",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.4"
+  }
+}
