@@ -6,7 +6,11 @@ const loggerMiddleware = require('./middlewares/logger');
 const homeRoute = require('./routers/home');
 const genreRoute = require('./routers/genres');
 const app = express();
+const mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/movie-rentals', { useNewUrlParser: true })
+  .then(() => console.log('Connected to MongoDB...'))
+  .catch(err => console.error('Could not connect to MongoDB...'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
