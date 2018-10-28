@@ -1,7 +1,7 @@
 const express = require('express');
 const Joi = require('joi');
 const router = express.Router();
-const Movie = require('../models/movie');
+const { Movie } = require('../models/movie');
 const { Genre } = require('../models/genre');
 
 router.get('/', async (req, res) => {
