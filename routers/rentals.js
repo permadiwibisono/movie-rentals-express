@@ -44,15 +44,20 @@ router.post('/', async (req, res) => {
     rentalFee: 5
   });
 
-  Fawn.Task()
-  .save('rentals', rental)
-  .update('movies', { _id: movie._id }, {
-    $inc:{
-      numberInStock: -1
-    }
-  })
-  .run();
-  res.send(rental);
+  try{
+    await new Fawn.Task()
+      .save('rentals', rental)
+      .update('movies', { _id: movie._id }, {
+        $inc:{
+          numberInStock: -1
+        }
+      })
+      .run();
+    res.send(rental);
+  }
+  catch(ex){
+    res.status(500).send('Internal Server Error.');
+  }
 });
 
 
