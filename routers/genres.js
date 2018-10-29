@@ -1,7 +1,7 @@
 const express = require('express');
 const Joi = require('joi');
 const router = express.Router();
-const Genre = require('../models/genre');
+const { Genre } = require('../models/genre');
 
 router.get('/', async (req, res) => {
   const genres = await Genre.find().sort('name');

@@ -6,6 +6,8 @@ const loggerMiddleware = require('./middlewares/logger');
 const homeRoute = require('./routers/home');
 const genreRoute = require('./routers/genres');
 const customerRoute = require('./routers/customers');
+const movieRoute = require('./routers/movies');
+const rentalRoute = require('./routers/rentals');
 const app = express();
 const mongoose = require('mongoose');
 
@@ -28,5 +30,7 @@ const port = process.env.PORT || 3000;
 app.use("/api", homeRoute);
 app.use('/api/genres', genreRoute);
 app.use('/api/customer', customerRoute);
+app.use('/api/movies', movieRoute);
+app.use('/api/rentals', rentalRoute);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Genre = new Schema({
+const genreSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -10,4 +10,7 @@ const Genre = new Schema({
   }
 })
 
-module.exports = mongoose.model('Genre', Genre);
+module.exports = {
+  genreSchema,
+  Genre: mongoose.model('Genre', genreSchema)
+};
