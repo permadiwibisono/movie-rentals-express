@@ -10,6 +10,8 @@ const movieRoute = require('./routers/movies');
 const rentalRoute = require('./routers/rentals');
 const app = express();
 const mongoose = require('mongoose');
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 mongoose.connect('mongodb://localhost/movie-rentals', { useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB...'))
