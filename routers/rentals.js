@@ -1,9 +1,13 @@
 const express = require('express');
 const Joi = require('joi');
+const Fawn = require('fawn');
+const mongoose = require('mongoose');
 const router = express.Router();
 const { Movie } = require('../models/movie');
 const { Customer } = require('../models/customer');
 const { Rental } = require('../models/rental');
+
+Fawn.init(mongoose, "Fawn");
 
 router.get('/', async (req, res) => {
   const rental = await Rental.find().sort('-dateOut');
@@ -40,11 +44,15 @@ router.post('/', async (req, res) => {
     dateReturn: Date.now(),
     rentalFee: 5
   });
-  await rental.save();
 
-  movie.numberInStock--;
-  movie.save();
-
+  Fawn.Task()
+  .save('rentals', rental)
+  .update('movies', { _id: movie._id }, {
+    $inc:{
+      numberInStock: -1
+    }
+  })
+  .run();
   res.send(rental);
 });
 
