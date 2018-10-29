@@ -1,6 +1,16 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { genreSchema } = require('./genre');
+
+function validateRental(rental) {
+  const schema = {
+    customerId: Joi.string().required(),
+    movieId: Joi.string().required(),
+  };
+
+  return Joi.validate(rental, schema);
+}
 
 const rentalSchema = new Schema({
   customer: {
@@ -61,4 +71,5 @@ const rentalSchema = new Schema({
 module.exports = {
   rentalSchema,
   Rental: mongoose.model('Rental', rentalSchema),
+  validate: validateRental
 };

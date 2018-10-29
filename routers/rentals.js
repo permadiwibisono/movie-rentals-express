@@ -1,11 +1,10 @@
 const express = require('express');
-const Joi = require('joi');
 const Fawn = require('fawn');
 const mongoose = require('mongoose');
 const router = express.Router();
 const { Movie } = require('../models/movie');
 const { Customer } = require('../models/customer');
-const { Rental } = require('../models/rental');
+const { Rental, validate } = require('../models/rental');
 
 Fawn.init(mongoose, "Fawn");
 
@@ -15,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { error } = validateRental(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(422).send(error.details[0].message);
 
   const customer = await Customer.findById(req.body.customerId);
@@ -62,14 +61,5 @@ router.get('/:id', async (req, res) => {
   if (!rental) return res.status(404).send('The movie with the given ID was not found.');
   res.send(rental);
 });
-
-function validateRental(rental) {
-  const schema = {
-    customerId: Joi.string().required(),
-    movieId: Joi.string().required(),
-  };
-
-  return Joi.validate(rental, schema);
-}
 
 module.exports = router;
