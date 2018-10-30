@@ -1,7 +1,6 @@
 const express = require('express');
-const Joi = require('joi');
 const router = express.Router();
-const { Movie } = require('../models/movie');
+const { Movie, validate } = require('../models/movie');
 const { Genre } = require('../models/genre');
 
 router.get('/', async (req, res) => {
@@ -10,7 +9,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { error } = validateMovie(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(422).send(error.details[0].message);
 
   const genre = await Genre.findById(req.body.genreId);
@@ -31,7 +30,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const { error } = validateMovie(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(422).send(error.details[0].message);
 
   const genre = await Genre.findById(req.body.genreId);
@@ -65,16 +64,5 @@ router.get('/:id', async (req, res) => {
   if (!movie) return res.status(404).send('The movie with the given ID was not found.');
   res.send(movie);
 });
-
-function validateMovie(movie) {
-  const schema = {
-    title: Joi.string().min(5).max(255).required(),
-    genreId: Joi.string().required(),
-    numberInStock: Joi.number().min(0).max(255),
-    dailyRentalRate: Joi.number().min(0).max(255)
-  };
-
-  return Joi.validate(movie, schema);
-}
 
 module.exports = router;

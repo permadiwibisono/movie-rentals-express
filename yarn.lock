@@ -389,6 +389,10 @@ dasherize@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/dasherize/-/dasherize-2.0.0.tgz#6d809c9cd0cf7bb8952d80fc84fa13d47ddb1308"
 
+dayjs@^1.7.7:
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.7.7.tgz#8df20f78ac2476e3f5348ef49f8f22ebc3016370"
+
 debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -1072,6 +1076,10 @@ isobject@^2.0.0:
 isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
+
+joi-objectid@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/joi-objectid/-/joi-objectid-2.0.0.tgz#56549573a66ba795dcf6b9e226de5f3b2d36ec3a"
 
 joi@^13.6.0:
   version "13.7.0"

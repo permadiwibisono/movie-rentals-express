@@ -1,12 +1,11 @@
 const express = require('express');
-const Joi = require('joi');
 const Fawn = require('fawn');
 const mongoose = require('mongoose');
+const dayjs = require('dayjs');
 const router = express.Router();
 const { Movie } = require('../models/movie');
 const { Customer } = require('../models/customer');
-const { Rental } = require('../models/rental');
-
+const { Rental, validate } = require('../models/rental');
 Fawn.init(mongoose, "Fawn");
 
 router.get('/', async (req, res) => {
@@ -15,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { error } = validateRental(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(422).send(error.details[0].message);
 
   const customer = await Customer.findById(req.body.customerId);
@@ -41,19 +40,24 @@ router.post('/', async (req, res) => {
       dailyRentalRate: movie.dailyRentalRate,
       genre: movie.genre
     },
-    dateReturn: Date.now(),
+    dateReturn: dayjs().add(7, 'day').format(),
     rentalFee: 5
   });
 
-  Fawn.Task()
-  .save('rentals', rental)
-  .update('movies', { _id: movie._id }, {
-    $inc:{
-      numberInStock: -1
-    }
-  })
-  .run();
-  res.send(rental);
+  try{
+    await new Fawn.Task()
+      .save('rentals', rental)
+      .update('movies', { _id: movie._id }, {
+        $inc:{
+          numberInStock: -1
+        }
+      })
+      .run();
+    res.send(rental);
+  }
+  catch(ex){
+    res.status(500).send('Internal Server Error.');
+  }
 });
 
 
@@ -62,14 +66,5 @@ router.get('/:id', async (req, res) => {
   if (!rental) return res.status(404).send('The movie with the given ID was not found.');
   res.send(rental);
 });
-
-function validateRental(rental) {
-  const schema = {
-    customerId: Joi.string().required(),
-    movieId: Joi.string().required(),
-  };
-
-  return Joi.validate(rental, schema);
-}
 
 module.exports = router;

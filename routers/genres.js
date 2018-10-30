@@ -1,7 +1,7 @@
 const express = require('express');
 const Joi = require('joi');
 const router = express.Router();
-const { Genre } = require('../models/genre');
+const { Genre, validate } = require('../models/genre');
 
 router.get('/', async (req, res) => {
   const genres = await Genre.find().sort('name');
@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { error } = validateGenre(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(422).send(error.details[0].message);
 
   const genre = new Genre({
@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const { error } = validateGenre(req.body);
+  const { error } = validate(req.body);
   if (error) return res.status(422).send(error.details[0].message);
 
   const genre = await Genre.findByIdAndUpdate(req.params.id, {
@@ -32,23 +32,15 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   const genre = await Genre.findByIdAndRemove(req.params.id);
-  if (!genre) return res.status(404).send('The genre with the given ID was not f                                                                                                                ound.');
+  if (!genre) return res.status(404).send('The genre with the given ID was not found.');
 
   res.send(genre);
 });
 
 router.get('/:id', async (req, res) => {
   const genre = await Genre.findById(req.params.id);
-  if (!genre) return res.status(404).send('The genre with the given ID was not f                                                                                                                ound.');
+  if (!genre) return res.status(404).send('The genre with the given ID was not found.');
   res.send(genre);
 });
-
-function validateGenre(genre) {
-  const schema = {
-    name: Joi.string().min(5).max(50).required()
-  };
-
-  return Joi.validate(genre, schema);
-}
 
 module.exports = router;
