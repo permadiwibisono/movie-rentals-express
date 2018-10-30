@@ -8,6 +8,8 @@ const genreRoute = require('./routers/genres');
 const customerRoute = require('./routers/customers');
 const movieRoute = require('./routers/movies');
 const rentalRoute = require('./routers/rentals');
+const userRoute = require('./routers/users');
+const loginRoute = require('./routers/logins');
 const app = express();
 const mongoose = require('mongoose');
 const Joi = require('joi');
@@ -38,5 +40,7 @@ app.use('/api/genres', genreRoute);
 app.use('/api/customers', customerRoute);
 app.use('/api/movies', movieRoute);
 app.use('/api/rentals', rentalRoute);
+app.use('/api/users', userRoute);
+app.use('/api/logins', loginRoute);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
