@@ -12,6 +12,9 @@ const app = express();
 const mongoose = require('mongoose');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
+const dayjs = require('dayjs');
+require('dayjs/locale/id');
+dayjs.locale('id');
 
 mongoose.connect('mongodb://localhost/movie-rentals', { useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB...'))
@@ -24,6 +27,7 @@ if(app.get('env') === 'development') {
   app.use(morgan('tiny'));
   app.use(loggerMiddleware);
   debug("Morgan enabled");
+  debug("Date Now: ", dayjs().format());
 }
 debug("NODE_ENV: ", process.env.NODE_ENV)
 debug("DEBUG: ", process.env.DEBUG)
