@@ -1,11 +1,11 @@
 const express = require('express');
 const Fawn = require('fawn');
 const mongoose = require('mongoose');
+const dayjs = require('dayjs');
 const router = express.Router();
 const { Movie } = require('../models/movie');
 const { Customer } = require('../models/customer');
 const { Rental, validate } = require('../models/rental');
-
 Fawn.init(mongoose, "Fawn");
 
 router.get('/', async (req, res) => {
@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
       dailyRentalRate: movie.dailyRentalRate,
       genre: movie.genre
     },
-    dateReturn: Date.now(),
+    dateReturn: dayjs().add(7, 'day').format(),
     rentalFee: 5
   });
 
