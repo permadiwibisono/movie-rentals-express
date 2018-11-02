@@ -1081,6 +1081,10 @@ joi-objectid@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/joi-objectid/-/joi-objectid-2.0.0.tgz#56549573a66ba795dcf6b9e226de5f3b2d36ec3a"
 
+joi-password-complexity@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/joi-password-complexity/-/joi-password-complexity-2.0.1.tgz#7a65485a366447a222542d9c1ea9c1589000d6bd"
+
 joi@^13.6.0:
   version "13.7.0"
   resolved "https://registry.yarnpkg.com/joi/-/joi-13.7.0.tgz#cfd85ebfe67e8a1900432400b4d03bbd93fb879f"
@@ -1137,7 +1141,7 @@ lodash.get@4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
 
-lodash@^4.14.0, lodash@^4.17.10:
+lodash@^4.14.0, lodash@^4.17.10, lodash@^4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
