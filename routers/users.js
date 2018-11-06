@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
   user = new User(_.merge(_.pick(req.body, ['name', 'email']), { password: hashed }));
 
   await user.save();
-  res.send(_.pick(user, ['_id', 'name', 'email', '__v']));
+  res.send(_.omit(user.toObject(), ['password']));
 });
 
 module.exports = router;
