@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/permadiwibisono/movie-rentals-express#readme",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "config": "^2.0.1",
     "cross-env": "^5.2.0",
     "dayjs": "^1.7.7",
