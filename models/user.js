@@ -1,5 +1,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const Schema = mongoose.Schema;
 
 function validateUser(user) {
@@ -41,6 +43,9 @@ const userSchema = new Schema({
     maxLength: 1024
   }
 })
+userSchema.methods.generateAuthToken = function(){
+  return jwt.sign({ _id: this._id, email: this.email }, config.get('jwt.secretKey'))
+}
 
 module.exports = {
   userSchema,
