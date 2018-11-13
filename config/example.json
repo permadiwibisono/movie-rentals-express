@@ -1,0 +1,9 @@
+{
+  "dbConfig": {
+    "mongoUrl": "mongodb://localhost/movie-rentals"
+  },
+  "jwt":{
+    "secretKey": ""
+  },
+  "port": ""
+}

@@ -1,4 +1,5 @@
 const express  = require('express');
+const config = require('config');
 const debug = require('debug')('app:startup');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -18,7 +19,12 @@ const dayjs = require('dayjs');
 require('dayjs/locale/id');
 dayjs.locale('id');
 
-mongoose.connect('mongodb://localhost/movie-rentals', { useNewUrlParser: true })
+if(!config.get('jwt.secretKey')){
+  debug("Please setting your jwt secret key on configs");
+  process.exit(-1);
+}
+
+mongoose.connect(config.get('dbConfig.mongoUrl'), { useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
 app.use(express.json());
@@ -33,7 +39,7 @@ if(app.get('env') === 'development') {
 }
 debug("NODE_ENV: ", process.env.NODE_ENV)
 debug("DEBUG: ", process.env.DEBUG)
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || config.get("port") || 5000;
 
 app.use("/api", homeRoute);
 app.use('/api/genres', genreRoute);

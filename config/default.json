@@ -1,0 +1,8 @@
+{
+  "dbConfig": {
+    "mongoUrl":""
+  },
+  "jwt":{
+    "secretKey": ""
+  }
+}
