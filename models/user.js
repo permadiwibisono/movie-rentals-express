@@ -41,10 +41,12 @@ const userSchema = new Schema({
     type: String,
     minLength: 5,
     maxLength: 1024
-  }
+  },
+  isAdmin: Boolean
 })
 userSchema.methods.generateAuthToken = function(){
-  return jwt.sign({ _id: this._id, email: this.email }, config.get('jwt.secretKey'))
+  return jwt.sign({ _id: this._id, email: this.email, isAdmin: this.isAdmin },
+    config.get('jwt.secretKey'))
 }
 
 module.exports = {
