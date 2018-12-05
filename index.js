@@ -4,6 +4,7 @@ const debug = require('debug')('app:startup');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const loggerMiddleware = require('./middlewares/logger');
+const errorMiddleware = require('./middlewares/error');
 const homeRoute = require('./routers/home');
 const genreRoute = require('./routers/genres');
 const customerRoute = require('./routers/customers');
@@ -48,5 +49,6 @@ app.use('/api/movies', movieRoute);
 app.use('/api/rentals', rentalRoute);
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
+app.use(errorMiddleware);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
