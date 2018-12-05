@@ -26,6 +26,7 @@
     "dayjs": "^1.7.7",
     "debug": "^4.0.1",
     "express": "^4.16.3",
+    "express-async-errors": "^3.1.1",
     "fawn": "^2.1.5",
     "helmet": "^3.13.0",
     "joi": "^13.6.0",
